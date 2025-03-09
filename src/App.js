@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src =
+      // "https://backend-vert-pi-68.vercel.app/buyback-widget.js";
+      "http://localhost:5000/buyback-widget.js";
+    script.async = true;
+    script.onload = () => {
+      if (window.Buyback) {
+        new window.Buyback({
+          apiUrl: "http://localhost:5000",
+          // "https://backend-vert-pi-68.vercel.app",
+          apiKey: "mySecretKey123",
+        });
+      } else {
+        console.error("Buyback widget failed to load.");
+      }
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  return <div className="buyback-widget"></div>;
+};
 
 export default App;
