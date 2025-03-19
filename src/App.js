@@ -5,12 +5,12 @@ const App = () => {
     const script = document.createElement("script");
     script.src =
       // "https://backend-vert-pi-68.vercel.app/buyback-widget.js";
-      "http://localhost:5000/buyback-widget.js";
+      "http://localhost:5001/buyback-widget.js";
     script.async = true;
     script.onload = () => {
       if (window.Buyback) {
         new window.Buyback({
-          apiUrl: "http://localhost:5000",
+          apiUrl: "http://localhost:5001",
           // "https://backend-vert-pi-68.vercel.app",
           apiKey: "mySecretKey123",
         });
